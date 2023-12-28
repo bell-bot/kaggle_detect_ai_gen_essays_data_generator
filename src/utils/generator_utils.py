@@ -31,9 +31,7 @@ def generate_essays_for_prompt(prompt, num, prompt_id, client):
     return [[prompt_id, choice.message.content, 1] for choice in essays.choices]
 
 
-def generate_essays(path_to_training_prompts, path_to_training_data, num_essays, filename):
-    # Define your own OpenAI API key here or store it as environment variable
-    openai_api_key = os.environ['OPENAI_API_KEY']
+def generate_essays(path_to_training_prompts, path_to_training_data, num_essays, filename, openai_api_key):
 
     # Initialize OpenAI client
     client = OpenAI(api_key=openai_api_key)

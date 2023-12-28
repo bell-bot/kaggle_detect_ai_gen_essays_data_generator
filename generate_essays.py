@@ -1,3 +1,5 @@
+import os
+
 from src.utils.generator_utils import generate_essays
 
 
@@ -41,4 +43,9 @@ if __name__ == "__main__":
             if confirm.lower() == "y":
                 break
 
-    generate_essays(path_to_train_prompts, path_to_training_essays, num_essays, out_path)
+    try:
+        openai_api_key = os.environ['OPENAI_API_KEY']
+    except KeyError:
+        openai_api_key = input("Please enter your OpenAi API Key:    ")
+
+    generate_essays(path_to_train_prompts, path_to_training_essays, num_essays, out_path, openai_api_key)

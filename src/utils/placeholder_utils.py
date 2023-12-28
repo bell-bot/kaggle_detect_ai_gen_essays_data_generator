@@ -185,11 +185,12 @@ def request_missing_placeholders(missing_placeholders):
                 The placeholder dictionary contains a number of variables that are used to build the replacement values. 
                 Use the same name as the pre-defined value if you want the placeholder substitution to be consistent within 
                 an essay. 
-                For instance, the placeholder dictionary contains a variable `\"your_last_name\"` which returns a random fake
+                For instance, the placeholder dictionary contains a variable `\"your_last_name\"` which stores a random fake
                 last name and is used to build the value for the `\"name\"` placeholder. You may have a missing placeholder 
                 called `\"yoursistername\"` and want to use the same last name in \"yoursistername\" as in the `\"name\"` placeholder.
                 When prompted, you could provide the value in the following way:
-                \"yoursistername\": f\"{'{fake.first_name()}'} {'{your_last_name}'}\"
+                \"yoursistername\": fake.first_name() your_last_name
+                
                 The example above creates a string composed of a randomly generated and last name where the last name will
                 be consistent across the essay.
                 
@@ -213,10 +214,19 @@ def request_missing_placeholders(missing_placeholders):
                 """
             )
 
-            missing_placeholders_dict = {}
-            for placeholder in missing_placeholders:
-                placeholder_value = input(f"{placeholder}:  ")
-                missing_placeholders_dict[placeholder] = placeholder_value
+            while True:
+                missing_placeholders_dict = {}
+                for placeholder in missing_placeholders:
+
+                    placeholder_value = input(f"{placeholder}:  ")
+                    missing_placeholders_dict[placeholder] = placeholder_value
+
+                print(f"You provided the following placeholders\n")
+                for (key, value) in missing_placeholders_dict.items(): print(f"{key}: {value}\n")
+
+                confirm = input(f"Is this correct? (Y/n)    ")
+                if confirm.lower() in POSITIVE_RESPONSE:
+                    break
             print()
             print(f"{len(missing_placeholders_dict)} placeholder(s) provided. Proceeding.")
 
